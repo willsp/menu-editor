@@ -1,0 +1,120 @@
+/*csslint universal-selector: false, box-sizing: false*/
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    background: #111111;
+    color: #DDDDDD;
+    font-size: 62.5%;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+body {
+    width: 90%;
+    max-width: 1000px;
+    background: #CCCCCC;
+    color: #666666;
+    margin: 0 auto;
+    text-align: left;
+    padding: 1em;
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    padding: 1em;
+    background: #AAAAAA;
+    color: #111111;
+    text-align: left;
+    margin: 0 0 1em;
+}
+
+button {
+    padding: .5rem;
+    font-size: .8em;
+    margin: 0 0 0 .5rem;
+}
+
+ul, li {
+    border-radius: 4px 0 0 4px;
+    padding: 0;
+    list-style: none;
+}
+
+ul {
+    padding: 3px 0 0 3px;
+    background: #999999;
+    margin: 0;
+}
+
+li {
+    background: #dddddd;
+    border: #666666 solid;
+    border-width: 1px;
+    border-right-width: 0;
+    font-size: 1.2rem;
+    line-height: 3rem;
+    margin: 0;
+    margin-bottom: 3px;
+    padding: 0 0 0 .6em;
+}
+
+li ul {
+    display: none;
+}
+
+.children-visible > ul {
+    display: block;
+}
+
+.open {
+    margin-right: 3px;
+    visibility: hidden;
+}
+
+.open:before {
+    content: "+";
+}
+
+.children-visible > .open:before {
+    content: "-";
+}
+
+.has-children {
+    visibility: visible;
+}
+
+.dragging {
+    opacity: 0.4;
+}
+
+.target {
+    background: transparent;
+    border: none;
+    height: .5em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    transition: margin 1s ease-in-out;
+}
+
+.over {
+    border: dashed #ffffff;
+    border-width: 2px;
+    border-right-width: 0;
+    margin-bottom: 1px;
+}
+
+.gripper {
+    background: url('img/burger.png') center center no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    height: 1.9rem;
+    vertical-align: middle;
+    width: 2rem;
+}
+
