@@ -1,4 +1,5 @@
-/*csslint universal-selector: false, box-sizing: false*/
+/*csslint universal-selector: false, box-sizing: false, box-model: false*/
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -90,16 +91,6 @@ li ul {
 
 .dragging {
     opacity: 0.4;
-}
-
-.target {
-    background: transparent;
-    border: none;
-    height: .5em;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    transition: margin 1s ease-in-out;
 }
 
 .over {
