@@ -7,17 +7,31 @@
 </head>
 <body ng-controller="menuEditorCtrl">
     <h1>Menu Editor</h1>
+    <section class="updates">
+        <ul class="info">
+            <li ng-repeat="message in updates">
+                {{message.text}}
+                <span class="time">{{message.time.toTimeString()}}</span>
+            </li>
+        </ul>
+        <ul class="error">
+            <li ng-repeat="message in errors">
+                {{message.text}}
+                <span class="time">{{message.time.toTimeString()}}</span>
+            </li>
+        </ul>
+    </section>
     <section class="services">
-        <div>
-            <input ng-model="menuGetAddres"> 
-            <button ng-click="getMenu()">Get Menu</button>
+        <div class="get">
+            <input ng-model="menuGetAddress"> 
+            <button ng-click="reloadMenu()">Get Menu</button>
         </div>
-        <div>
+        <div class="save">
             <input ng-model="menuPutAddress">
             <button ng-click="putMenu()">Save Menu</button>
         </div>
     </section>
-    <button ng-click="add()">Add Root</button>
+    <button class="add-root" ng-click="add()">Add Root</button>
 
     <ul id="root" class="root">
         <li class="item {{item.showChildren | showChildren}}" ng-repeat="item in roots" ng-include="'xitem.html'" pw-sortable="roots" direction="vertical" reference="item">
@@ -40,6 +54,7 @@
     <script src="libs/angular.js"></script>
     <script src="libs/TreeNode.js"></script>
     <script src="libs/TreeNode.ImportFromJSON.js"></script>
+    <script src="js/customImport.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/directive.sortable.js"></script>
 </body>

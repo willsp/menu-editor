@@ -40,19 +40,20 @@ button {
     margin: 0 0 0 .5rem;
 }
 
-ul, li {
+.root ul,
+.root li {
     border-radius: 4px 0 0 4px;
     padding: 0;
     list-style: none;
 }
 
-ul {
+.root ul {
     padding: 3px 0 0 3px;
     background: #999999;
     margin: 0;
 }
 
-li {
+.root li {
     background: #dddddd;
     border: #666666 solid;
     border-width: 1px;
@@ -64,40 +65,29 @@ li {
     padding: 0 0 0 .6em;
 }
 
-li ul {
+.root li ul {
     display: none;
 }
 
-.children-visible > ul {
+.root .children-visible > ul {
     display: block;
 }
 
-.open {
+.root .open {
     margin-right: 3px;
     visibility: hidden;
 }
 
-.open:before {
+.root .open:before {
     content: "+";
 }
 
-.children-visible > .open:before {
+.root .children-visible > .open:before {
     content: "-";
 }
 
-.has-children {
+.root .has-children {
     visibility: visible;
-}
-
-.dragging {
-    opacity: 0.4;
-}
-
-.over {
-    border: dashed #ffffff;
-    border-width: 2px;
-    border-right-width: 0;
-    margin-bottom: 1px;
 }
 
 .gripper {
@@ -107,5 +97,36 @@ li ul {
     height: 1.9rem;
     vertical-align: middle;
     width: 2rem;
+}
+
+.updates {
+    margin: 10px auto 0;
+    min-width: 300px;
+    width: 60%;
+}
+
+.updates li {
+    list-style-type: none;
+    font-size: 1.1em;
+}
+
+.updates .time {
+    font-size: 0.8em;
+    color: #999999;
+    vertical-align: middle;
+}
+
+.updates .time:before {
+    content: '- ';
+}
+
+.info li {
+    background: #ccccff;
+    padding: 1em;
+}
+
+.error li {
+    background: #ffcccc;
+    padding: 1em;
 }
 

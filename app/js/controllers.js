@@ -21,33 +21,57 @@
         };
     });
 
-    menuEditor.controller('menuEditorCtrl', function menuEditorCtrl($scope, $http) {
+    menuEditor.controller('menuEditorCtrl', function menuEditorCtrl($scope, $http, $document) {
+        $scope.errors = [];
+        $scope.updates = [];
         $scope.roots = [];
+        $scope.menuGetAddress = '/menu/Menu.asmx/GetJSON';
+        $scope.menuPutAddress = '/menu/Menu.asmx/UpdateMenu';
 
-        $scope.getMenu = function() {
+        $scope.reloadMenu = function() {
             if (confirm("You will lose any unsaved work, are you sure?")) {
-                $scope.roots = [];
-
-                $http({method: 'GET', url: $scope.menuGetAddress}).
-                    success(function(data, status, headers, config) {
-                        var menu = new TreeNode.ImportFromJSON({
-                            data: data,
-                            childKey: 'Children'
-                        });
-
-                        $scope.roots.push(menu);
-                    }).
-                    error(function(data, status, headers, config) {
-                        /*jshint devel: true*/
-                        console.log("error");
-                        console.dir(data);
-                        console.dir(status);
-                    });
+                $scope.getMenu();
             }
         };
 
+        $scope.getMenu = function() {
+            $scope.roots = [];
+
+            $http({method: 'POST', data: '', url: $scope.menuGetAddress}).
+                success(function(data, status, headers, config) {
+                var menu = new TreeNode.ImportFromJSON({
+                    data: data.d,
+                    childKey: 'Children',
+                    textKey: 'Text',
+                    urlKey: 'Url'
+                });
+
+                $scope.roots.push(menu);
+            }).
+                error(function(data, status, headers, config) {
+                $scope.errors.push({
+                    text: "Error: Unable to load menu. Status: " + status,
+                    time: new Date()
+                });
+            });
+        };
+
         $scope.putMenu = function() {
-            var json = JSON.stringify($scope.roots[0]);
+            var updateQuery = $scope.roots[0].ExportUpdates().Statement();
+
+            $http({method: 'POST', data: updateQuery, url: $scope.menuGetAddress}).
+                success(function(data, status, headers, config) {
+                $scope.updates.push({
+                    text: data + ' (' + status + ')',
+                    time: new Date()
+                });
+            }).
+                error(function(data, status, headers, config) {
+                $scope.errors.push({
+                    text: "Error: Unable to save menu. Status: " + status,
+                    time: new Date()
+                });
+            });
         };
                         
         $scope.add = function(item) {
@@ -69,6 +93,12 @@
         $scope.showChildren = function(item) {
             item.showChildren = !item.showChildren;
         };
+
+        $document.ready(function () {
+            if ($scope.menuGetAddress) {
+                $scope.getMenu();
+            }
+        });
     });
 
     window.angularModule = menuEditor;

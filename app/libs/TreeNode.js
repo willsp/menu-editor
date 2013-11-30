@@ -8,10 +8,6 @@
     }
 
     TreeNode.prototype.add = function(child) {
-        if (child.constructor.name !== 'TreeNode') {
-            throw 'Child must be a TreeNode object';
-        }
-
         this.children.push(child);
         child.parent = this;
         return child;
