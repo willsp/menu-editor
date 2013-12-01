@@ -130,3 +130,9 @@ button {
     padding: 1em;
 }
 
+.get input,
+.save input,
+.add-root {
+    display: none;
+}
+

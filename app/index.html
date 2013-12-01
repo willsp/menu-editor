@@ -24,7 +24,7 @@
     <section class="services">
         <div class="get">
             <input ng-model="menuGetAddress"> 
-            <button ng-click="reloadMenu()">Get Menu</button>
+            <button ng-click="reloadMenu()">Reload Menu</button>
         </div>
         <div class="save">
             <input ng-model="menuPutAddress">
@@ -41,8 +41,8 @@
     <script type="text/ng-template" id="xitem.html">
         <span class="gripper" pw-handle></span>
         <button class="open {{item.children.length > 0 | hasChildren}}" ng-click="$parent.showChildren(item)"></button>
-        <input class="text" ng-model="item.data.text">
-        <input class="url" ng-model="item.data.url">
+        <input class="text" ng-model="item.data.text" ng-blur="$parent.check(item)">
+        <input class="url" ng-model="item.data.url" ng-blur="$parent.check(item)">
         <button class="add" ng-click="$parent.add(item)">Add</button>
         <button class="delete" ng-click="$parent.remove(item)">Delete</button>
         <ul class="children" ng-show="item.children.length > 0">
@@ -54,6 +54,9 @@
     <script src="libs/angular.js"></script>
     <script src="libs/TreeNode.js"></script>
     <script src="libs/TreeNode.ImportFromJSON.js"></script>
+    <script src="libs/TreeNode.ExportUpdates.js"></script>
+    <script src="libs/TreeNode.Decorate.js"></script>
+    <script src="libs/TreeNode.LftRgt.js"></script>
     <script src="js/customImport.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/directive.sortable.js"></script>

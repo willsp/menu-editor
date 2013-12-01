@@ -5,7 +5,7 @@
         if (init) {
             var tree = new TreeNode();
             var data = init.data;
-            var i, max;
+            var i, max, newInit, newProp;
 
             var childKey = init.childKey || 'children';
             
@@ -19,10 +19,18 @@
                         TreeNode.ImportFromJSON.custom(tree, init, prop);
                     } else {
                         for (i = 0, max = data[prop].length; i < max; i++) {
-                            tree.add(TreeNode.ImportFromJSON({
-                                data: data[prop][i],
-                                childKey: childKey
-                            }));
+                            // clone init except for data
+                            newInit = {};
+                            newInit.prototype = init.prototype;
+                            newInit.data = data[prop][i];
+                            for (newProp in init) {
+                                if (init.hasOwnProperty(newProp) &&
+                                    newProp !== 'data') {
+                                    newInit[newProp] = init[newProp];
+                                }
+                            }
+
+                            tree.add(TreeNode.ImportFromJSON(newInit));
                         }
                     }
                 }
@@ -34,5 +42,5 @@
 
     TreeNode.ImportFromJSON.custom = function(tree, init, property) {
         // Override this to process properties in a custom fashion
-    }
+    };
 }(window.TreeNode));

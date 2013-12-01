@@ -49,12 +49,13 @@
     function buildUpdates(context, updates, inserts) {
         var pl = context.data;
         var positionChanged;
+        var url;
         var statement = '';
         var updateIndex = updates.indexOf(context);
 
         if (!(inserts && inserts.indexOf(context) >= 0)) {
-            positionChanged = (parseInt(pl.lft, 10) !== context.Lft ||
-                parseInt(pl.rgt, 10) !== context.Rgt);
+            positionChanged = (parseInt(pl.original.lft, 10) !== context.Lft ||
+                parseInt(pl.original.rgt, 10) !== context.Rgt);
 
             if (positionChanged || (updates && updateIndex >= 0)) {
                 statement += 'UPDATE `nav`\nSET\n';
@@ -62,13 +63,14 @@
                 statement += ',\n`rgt` = ' + context.Rgt;
 
                 if (updates && updateIndex >= 0) {
+                    url = (pl.url) ? '\'' + pl.url + '\'' : 'NULL';
                     statement += ',\n`name` = \'' + pl.text + '\',\n';
-                    statement += '`url` = ' + (pl.url) ? '\'' + pl.url + '\'' : 'NULL';
+                    statement += '`url` = ' + url;
                     statement += ',\n`page_id` = ' + (pl.page_id || 'NULL');
                     updates.splice(updateIndex, 1);
                 }
 
-                statement += '\nWHERE id = ' + pl.id + ';\n';
+                statement += '\nWHERE id = ' + pl.original.id + ';\n';
             }
         }
         for (var i = 0, max = context.children.length; i < max; i++) {
@@ -87,7 +89,7 @@
             for (var i = 0, max = inserts.length; i < max; i++) {
                 statement += (i) ? ',' : ''; // Add comma for all but the first
                 statement += '\n(' + [
-                    '\'' + inserts[i].Payload().text + '\'',
+                    '\'' + inserts[i].data.text + '\'',
                     inserts[i].Lft,
                     inserts[i].Rgt,
                     inserts[i].data.page_id || 'NULL',
@@ -108,7 +110,7 @@
             
             for (var i = 0, max = deletes.length; i < max; i++) {
                 statement += 'DELETE FROM `nav`\n';
-                statement += 'WHERE `id` = ' + deletes[i].data.id + ';\n';
+                statement += 'WHERE `id` = ' + deletes[i].data.original.id + ';\n';
             }
         }
 
