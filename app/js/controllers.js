@@ -3,7 +3,7 @@
 (function() {
     'use strict';
 
-    var menuEditor = angular.module('menuEditor', []);
+    var menuEditor = angular.module('menuEditor', ['willsp.pwSortable']);
 
     menuEditor.filter('showChildren', function() {
         return function(input) {
@@ -152,7 +152,5 @@
             }
         });
     });
-
-    window.angularModule = menuEditor;
 }());
 

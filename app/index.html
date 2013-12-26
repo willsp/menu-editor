@@ -34,7 +34,7 @@
     <button class="add-root" ng-click="add()">Add Root</button>
 
     <ul id="root" class="root">
-        <li class="item {{item.showChildren | showChildren}}" ng-repeat="item in roots" ng-include="'xitem.html'" pw-sortable="roots" direction="vertical" reference="item">
+        <li class="item {{item.showChildren | showChildren}}" ng-repeat="item in roots" ng-include="'xitem.html'" pw-sortable>
         </li>
     </ul>
 
@@ -46,12 +46,13 @@
         <button class="add" ng-click="$parent.add(item)">Add</button>
         <button class="delete" ng-click="$parent.remove(item)">Delete</button>
         <ul class="children" ng-show="item.children.length > 0">
-            <li class="item {{item.showChildren | showChildren}}" ng-repeat="item in item.children" ng-include="'xitem.html'" pw-sortable="item.parent.children" direction="vertical" reference="item">
+            <li class="item {{item.showChildren | showChildren}}" ng-repeat="item in item.children" ng-include="'xitem.html'" pw-sortable>
             </li>
         </ul>
     </script>
 
     <script src="libs/angular.js"></script>
+    <script src="libs/directive.sortable.js"></script>
     <script src="libs/TreeNode.js"></script>
     <script src="libs/TreeNode.ImportFromJSON.js"></script>
     <script src="libs/TreeNode.ExportUpdates.js"></script>
@@ -59,6 +60,5 @@
     <script src="libs/TreeNode.LftRgt.js"></script>
     <script src="js/customImport.js"></script>
     <script src="js/controllers.js"></script>
-    <script src="js/directive.sortable.js"></script>
 </body>
 </html>
