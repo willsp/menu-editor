@@ -1,0 +1,93 @@
+/*csslint universal-selector: false, box-sizing: false, box-model: false*/
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html {
+  background: #ffffff;
+  color: #666666;
+  font-size: 62.5%;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+body {
+  font-size: 1.2rem;
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 1em;
+  text-align: left;
+  width: 90%;
+}
+h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin: 0 0 1em;
+}
+button {
+  border-radius: 0;
+  margin: 0 0 0 .5rem;
+  padding: .5rem;
+}
+.root ul,
+.root li {
+  border: 1px #cccccc solid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.root li {
+  line-height: 3rem;
+  padding: 0 0 0 .6em;
+}
+.root li ul {
+  display: none;
+}
+.root .children-visible > ul {
+  display: block;
+}
+.root .open {
+  margin-right: 3px;
+  visibility: hidden;
+}
+.root .open:before {
+  content: "+";
+}
+.root .children-visible > .open:before {
+  content: "-";
+}
+.root .has-children {
+  visibility: visible;
+}
+.gripper {
+  background: url('img/burger.png') center center no-repeat;
+  background-size: 100% 100%;
+  display: inline-block;
+  height: 1.9rem;
+  vertical-align: middle;
+  width: 2rem;
+}
+.updates {
+  margin: 10px auto 0;
+  min-width: 300px;
+  width: 60%;
+}
+.updates li {
+  list-style-type: none;
+}
+.updates .time {
+  font-size: 1rem;
+  color: #808080;
+  vertical-align: middle;
+}
+.updates .time:before {
+  content: '- ';
+}
+.info li {
+  background: #ccccff;
+  padding: 1em;
+}
+.error li {
+  background: #ffcccc;
+  padding: 1em;
+}
