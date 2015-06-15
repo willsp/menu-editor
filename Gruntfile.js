@@ -15,13 +15,17 @@ module.exports = function(grunt) {
             options: {
                 smarttabs: true
             },
-            files: ['script.js', 'Gruntfile.js', 'src/**/*.js']
+            gruntfile: {
+                src: 'Gruntfile.js'
+            },
+            app: {
+                src: 'app/js/{,*/}*.js'
+            }
         },
         less: {
             build: {
-                files: {
-                    'app/css/style.css': 'app/css/style.less'
-                }
+                src: 'app/css/style.less',
+                dest: 'app/css/style.css'
             }
         },
         csslint: {
@@ -50,7 +54,7 @@ module.exports = function(grunt) {
                 tasks: ['jshint:gruntfile']
             },
             less: {
-                files: 'less/{,*/}*.less',
+                files: '<%= less.build.src %>',
                 tasks: ['less']
             },
             livereload: {
@@ -61,6 +65,7 @@ module.exports = function(grunt) {
                     'app/*.html',
                     'app/css/{,*/}*.css',
                     'app/js/{,*/}*.js',
+                    'app/libs/{,*/}*.js',
                     'app/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }

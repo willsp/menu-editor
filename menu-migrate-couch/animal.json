@@ -1,0 +1,10 @@
+[
+    {
+        "Text": "Animal Control Home",
+        "Url": "~/animal/"
+    },
+    {
+        "Text": "Ordinances",
+        "Url": "~/animal/ordinances.aspx"
+    }
+]

@@ -1,4 +1,4 @@
-/*global angular, TreeNode, confirm*/
+/*global angular, TreeNode, confirm, $scope*/
 
 (function() {
     'use strict';
@@ -22,123 +22,120 @@
     });
 
     menuEditor.controller('menuEditorCtrl', function menuEditorCtrl($scope, $http, $document) {
-        $scope.errors = [];
         $scope.updates = [];
-        $scope.roots = [];
+        $scope.dbList = [];
         $scope.menuGetAddress = '';
         $scope.menuPutAddress = '';
-        $scope.insertedNodes = [];
-        $scope.deletedNodes = [];
-        $scope.updatedNodes = [];
+        $scope.menu = {};
 
         $scope.reloadMenu = function() {
-            if (confirm("You will lose any unsaved work, are you sure?")) {
+            if (confirm('You will lose any unsaved work, are you sure?')) {
                 $scope.getMenu();
             }
         };
 
-        $scope.getMenu = function() {
-            $scope.roots = [];
-            $scope.insertedNodes = [];
-            $scope.deletedNodes = [];
-            $scope.updatedNodes = [];
-
-            $http({method: 'POST', data: '', url: $scope.menuGetAddress}).
+        $scope.getMenus = function() {
+            $http({method: 'GET', url: $scope.dburl + $scope.dbview}).
                 success(function(data, status, headers, config) {
-                var menu = new TreeNode.ImportFromJSON({
-                    data: data.d,
-                    childKey: 'Children',
-                    original: 'Original',
-                    textKey: 'Text',
-                    urlKey: 'Url'
-                });
-
-                $scope.roots.push(menu);
-            }).
+                    $scope.dbList = data.rows;
+                }).
                 error(function(data, status, headers, config) {
-                $scope.errors.push({
-                    text: "Error: Unable to load menu. Status: " + status,
-                    time: new Date()
+                $scope.updates.unshift({
+                    text: 'Error: Unable to load menu. Status: ' + status,
+                    time: new Date(),
+                    type: "error"
+                });
+            });
+        };
+
+        $scope.open = function(url) {
+            if ($scope.menuPutAddress) {
+                $scope.putMenu();
+            }
+
+            $scope.menuGetAddress = $scope.dburl + '/' + url;
+            $scope.menuPutAddress = $scope.dburl + '/' + url;
+
+            $scope.getMenu();
+        };
+
+        $scope.getMenu = function() {
+            $http({method: 'GET', url: $scope.menuGetAddress}).
+                success(function(data, status, headers, config) {
+                    var menu;
+                    menu = TreeNode.ImportFromJSON({
+                        data: data,
+                        childKey: 'Children',
+                        textKey: 'Text',
+                        urlKey: 'Url'
+                    });
+
+                    $scope.menu = menu;
+                }).
+                error(function(data, status, headers, config) {
+                $scope.updates.unshift({
+                    text: 'Error: Unable to load menu. Status: ' + status,
+                    time: new Date(),
+                    type: "error"
                 });
             });
         };
 
         $scope.putMenu = function() {
-            var updateQuery = $scope.roots[0].ExportUpdates({
-                inserts: $scope.insertedNodes,
-                deletes: $scope.deletedNodes,
-                updates: $scope.updatedNodes
-            }).Statement();
+            var menu = $scope.menu;
+            var updated = menu.ExportToKeyValue({
+                childKey: 'Children',
+                callback: function(save) {
+                    save.Text = this.data.text;
+                    if (this.data.url) {
+                        save.Url = this.data.url;
+                    }
+                }
+            });
 
-
-            $http({method: 'POST', data: {"query": updateQuery}, url: $scope.menuPutAddress}).
+            $http({method: 'PUT', data: updated, url: $scope.menuPutAddress}).
                 success(function(data, status, headers, config) {
-                if (data.d === "OK") {
-                    $scope.updates.push({
-                        text: data.d + ' (Status: ' + status + ')',
-                        time: new Date()
+                if (data.ok) {
+                    $scope.updates.unshift({
+                        text: 'SUCCESS (Status: ' + status + ')',
+                        time: new Date(),
+                        type: "info"
                     });
-
-                    $scope.insertedNodes = [];
-                    $scope.deletedNodes = [];
-                    $scope.updatedNodes = [];
+                    menu.data.store._rev = data.rev;
                 } else {
-                    $scope.errors.push({
-                        text: "Error: There was a problem. Message: " +
-                            data.d + " Status: " + status,
-                        time: new Date()
+                    $scope.updates.unshift({
+                        text: 'Error: There was a problem. ' +
+                            'Status: ' + status,
+                        time: new Date(),
+                        type: "error"
                     });
                 }
             }).
                 error(function(data, status, headers, config) {
-                $scope.errors.push({
-                    text: "Error: Unable to save menu. Message: " +
-                        data + " Status: " + status,
-                    time: new Date()
+                $scope.updates.unshift({
+                    text: 'Error: Unable to save menu. Message: ' +
+                        data.reason + ' Status: ' + status,
+                    time: new Date(),
+                    type: "error"
                 });
             });
         };
                         
         $scope.add = function(item) {
+            var child;
+
             if (item) {
-                var child = item.add(new TreeNode());
+                child = item.add(new TreeNode());
                 item.showChildren = true;
-                $scope.insertedNodes.push(child);
             } else {
-                $scope.roots.push(new TreeNode());
+                child = $scope.menu.add(new TreeNode());
             }
         };
 
         $scope.remove = function(item) {
             var text = (item.data && item.data.text) ? item.data.text : 'this';
             if (confirm('Really delete ' + text + '?')) {
-                var removed = item.parent.remove(item);
-                var insertIndex = $scope.insertedNodes.indexOf(removed);
-                var updateIndex = $scope.updatedNodes.indexOf(removed);
-
-                if (insertIndex > -1) {
-                    $scope.insertedNodes.splice(insertIndex, 1);
-                } else {
-                    $scope.deletedNodes.push(removed);
-
-                    if (updateIndex > -1) {
-                        $scope.updatedNodes.splice(updateIndex, 1);
-                    }
-                }
-            }
-        };
-
-        $scope.check = function(item) {
-            var insertIndex = $scope.insertedNodes.indexOf(item);
-            var updateIndex = $scope.updatedNodes.indexOf(item);
-            
-            if (insertIndex < 0 && updateIndex < 0) {
-                if (item.data) {
-                    if (item.data.original && (item.data.text !== item.data.original.text ||
-                        item.data.url !== item.data.original.url)) {
-                        $scope.updatedNodes.push(item);
-                    }
-                }
+                item.parent.remove(item);
             }
         };
 
@@ -147,9 +144,10 @@
         };
 
         $document.ready(function () {
-            if ($scope.menuGetAddress) {
-                $scope.getMenu();
-            }
+            // Prime this with the test db... I'm tired of copy pasting it every time I reload...
+            $scope.dburl = 'http://localhost:5984/greenlee';
+            $scope.dbview = '/_design/edit/_view/menus';
+            $scope.getMenus();
         });
     });
 }());

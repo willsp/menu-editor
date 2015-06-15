@@ -1,0 +1,22 @@
+[
+    {
+        "Text": "Assessor Home",
+        "Url": "~/assessor/"
+    },
+    {
+        "Text": "Exemptions",
+        "Url": "~/assessor/exemptions.aspx"
+    },
+    {
+        "Text": "Notice of Change",
+        "Url": "~/assessor/change.aspx"
+    },
+    {
+        "Text": "Notice of Valuation",
+        "Url": "~/assessor/valuation.aspx"
+    },
+    {
+        "Text": "Personal Property",
+        "Url": "~/assessor/personalprop.aspx"
+    }
+]

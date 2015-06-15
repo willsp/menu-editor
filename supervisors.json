@@ -1,0 +1,132 @@
+[
+    {
+        "Text": "Board of Supervisors Home",
+        "Url": "~/bos/"
+    },
+    {
+        "Text": "Agendas and Minutes",
+        "Url": "~/bos/bosagendamins.aspx"
+    },
+    {
+        "Text": "Budgets",
+        "Url": "~/bos/budgets.aspx"
+    },
+    {
+        "Text": "Demand Processing Schedule",
+        "Url": "~/bos/pdfs/DemandSchedule.pdf"
+    },
+    {
+        "Children": [
+            {
+                "Text": "Fire District Handbook",
+                "Url": "~/bos/pdfs/firedisthandbook.pdf"
+            },
+            {
+                "Children": [
+                    {
+                        "Text": "Adopted Budget Form",
+                        "Url": "~/bos/pdfs/firedistrictadjbudget.pdf"
+                    },
+                    {
+                        "Text": "Impact Statement (Annexation)",
+                        "Url": "~/bos/pdfs/impactstatementannex.pdf"
+                    },
+                    {
+                        "Text": "Impact Statement (Formation)",
+                        "Url": "~/bos/pdfs/impactstatementform.pdf"
+                    },
+                    {
+                        "Text": "Tentative Budget Form",
+                        "Url": "~/bos/pdfs/firedisttentbudget.pdf"
+                    }
+                ],
+                "Text": "Forms"
+            }
+        ],
+        "Text": "Fire Districts"
+    },
+    {
+        "Text": "Holiday Schedule",
+        "Url": "~/bos/pdfs/HolidaySchedule.pdf"
+    },
+    {
+        "Text": "Meeting Dates (Tentative)",
+        "Url": "~/bos/pdfs/BOSAnnualMeetingDates.pdf"
+    },
+    {
+        "Text": "Meeting Posting",
+        "Url": "~/bos/posting.aspx"
+    },
+    {
+        "Text": "Pay Periods Schedule",
+        "Url": "~/bos/pdfs/PayPeriods.pdf"
+    },
+    {
+        "Children": [
+            {
+                "Text": "Merit System",
+                "Url": "~/bos/pdfs/meritsystem.pdf"
+            },
+            {
+                "Text": "Personnel Policy",
+                "Url": "~/bos/pdfs/personnelpolicy.pdf"
+            },
+            {
+                "Text": "Purchasing Policy",
+                "Url": "~/bos/pdfs/PurchasingPolicy.pdf"
+            }
+        ],
+        "Text": "Policies and Procedures"
+    },
+    {
+        "Children": [
+            {
+                "Text": "Property Tax Deed Sales Info",
+                "Url": "~/bos/taxdeeds.aspx"
+            },
+            {
+                "Children": [
+                    {
+                        "Text": "Notice of Auction",
+                        "Url": "~/bos/pdfs/Notice-AnnualAuction.pdf"
+                    },
+                    {
+                        "Text": "Procedures",
+                        "Url": "~/bos/taxdeedsprocedures.aspx"
+                    },
+                    {
+                        "Text": "Registration Form",
+                        "Url": "~/bos/pdfs/TaxDeedAuctionRegistration.pdf"
+                    },
+                    {
+                        "Children": [
+                            {
+                                "Text": "Bid Instructions",
+                                "Url": "~/bos/taxdeedscontsaleinstr.aspx"
+                            },
+                            {
+                                "Text": "Bid Sheet",
+                                "Url": "~/bos/pdfs/TaxDeedBidSheet.pdf"
+                            }
+                        ],
+                        "Text": "Continuous Sale"
+                    }
+                ],
+                "Text": "Annual Auction"
+            },
+            {
+                "Text": "Property List",
+                "Url": "~/bos/pdfs/PropertyList.pdf"
+            },
+            {
+                "Text": "Property Tax Deeds FAQ",
+                "Url": "~/bos/taxdeedsfaq.aspx"
+            },
+            {
+                "Text": "Resolution 09-05-01",
+                "Url": "~/bos/taxdeedsresolution.aspx"
+            }
+        ],
+        "Text": "Property Tax Deed Sales"
+    }
+]

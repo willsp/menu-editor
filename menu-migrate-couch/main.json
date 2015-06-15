@@ -1,0 +1,126 @@
+[
+    {
+        "Text": "Home",
+        "Url": "~/"
+    },
+    {
+        "Children": [
+            {
+                "Text": "Assessor",
+                "Url": "~/assessor/"
+            },
+            {
+                "Text": "Board of Supervisors",
+                "Url": "~/bos/"
+            },
+            {
+                "Text": "County Attorney",
+                "Url": "~/attorney/"
+            },
+            {
+                "Text": "Courts",
+                "Url": "~/courts/"
+            },
+            {
+                "Text": "Recorder / Registradora",
+                "Url": "~/recorder/"
+            },
+            {
+                "Text": "Sheriff",
+                "Url": "~/sheriff/"
+            },
+            {
+                "Text": "Superintendent of Schools",
+                "Url": "~/schools/"
+            },
+            {
+                "Text": "Treasurer",
+                "Url": "~/treasurer/"
+            }
+        ],
+        "Text": "Elected Officials"
+    },
+    {
+        "Children": [
+            {
+                "Text": "Animal Control",
+                "Url": "~/animal/"
+            },
+            {
+                "Text": "Elections / Elecciones",
+                "Url": "~/elections/"
+            },
+            {
+                "Text": "Emergency Management",
+                "Url": "~/emergency/"
+            },
+            {
+                "Text": "Engineering",
+                "Url": "~/engineering/"
+            },
+            {
+                "Text": "Fair and Racing",
+                "Url": "~/fair/"
+            },
+            {
+                "Text": "Health & County Services",
+                "Url": "~/health/"
+            },
+            {
+                "Text": "Information Technology",
+                "Url": "~/infosys/Default.aspx"
+            },
+            {
+                "Text": "Library System",
+                "Url": "http://www.greenleelibraries.org/greenlee/"
+            },
+            {
+                "Text": "Planning and Zoning",
+                "Url": "~/pz/Default.aspx"
+            },
+            {
+                "Text": "Public Works",
+                "Url": "~/pubworks/"
+            }
+        ],
+        "Text": "Departments & Services"
+    },
+    {
+        "Children": [
+            {
+                "Text": "County History",
+                "Url": "~/history.aspx"
+            },
+            {
+                "Text": "Demographics",
+                "Url": "~/demographics.aspx"
+            },
+            {
+                "Text": "Points of Interest",
+                "Url": "~/pointsofinterest.aspx"
+            },
+            {
+                "Text": "Additional Links",
+                "Url": "~/links.aspx"
+            },
+            {
+                "Text": "Greenlee Trails Study",
+                "Url": "~/trails.aspx"
+            }
+        ],
+        "Text": "Visitors"
+    },
+    {
+        "Children": [
+            {
+                "Text": "Phone List",
+                "Url": "~/contacts.aspx"
+            },
+            {
+                "Text": "Send a Message",
+                "Url": "~/comments.aspx?department={{department|u}}"
+            }
+        ],
+        "Text": "Contact Us"
+    }
+]

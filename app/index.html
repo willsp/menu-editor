@@ -7,57 +7,56 @@
 </head>
 <body ng-controller="menuEditorCtrl">
     <h1>Menu Editor</h1>
-    <section class="updates">
-        <ul class="info">
-            <li ng-repeat="message in updates">
-                {{message.text}}
-                <span class="time">{{message.time.toTimeString()}}</span>
-            </li>
-        </ul>
-        <ul class="error">
-            <li ng-repeat="message in errors">
-                {{message.text}}
-                <span class="time">{{message.time.toTimeString()}}</span>
-            </li>
-        </ul>
-    </section>
-    <section class="services">
-        <div class="get">
-            <input ng-model="menuGetAddress"> 
-            <button ng-click="reloadMenu()">Reload Menu</button>
-        </div>
-        <div class="save">
-            <input ng-model="menuPutAddress">
-            <button ng-click="putMenu()">Save Menu</button>
-        </div>
-    </section>
-    <button class="add-root" ng-click="add()">Add Root</button>
-
-    <ul id="root" class="root">
-        <li class="item {{item.showChildren | showChildren}}" ng-repeat="item in roots" ng-include="'xitem.html'" pw-sortable>
+    <ul class="updates">
+        <li class="{{message.type}}" ng-repeat="message in updates">
+            {{message.text}}
+            <span class="time">{{message.time.toTimeString()}}</span>
         </li>
     </ul>
+    <section class="select-menu">
+        <input class="dburl" type="text" ng-model="dburl">
+        <input class="dbview" type="text" ng-model="dbview">
+        <button ng-click="getMenus()">Load</button>
+        <ul>
+            <li ng-repeat="db in dbList" ng-click="open(db.id)">{{db.value}}</li>
+        </ul>
+    </section>
+    <section class="editor">
+        <section class="services">
+            <div class="get">
+                <input ng-model="menuGetAddress"> 
+                <button ng-click="reloadMenu()">Reload Menu</button>
+            </div>
+            <div class="save">
+                <input ng-model="menuPutAddress">
+                <button ng-click="putMenu()">Save Menu</button>
+            </div>
+        </section>
+
+        <ul id="root" class="root">
+            <li class="item {{item.children.length > 0 | hasChildren}} {{item.showChildren | showChildren}}" ng-repeat="item in menu.children" ng-include="'xitem.html'" pw-sortable>
+            </li>
+        </ul>
+        <button class="add" ng-click="add()" ng-show="menu.data.text">Add</button>
+    </section>
 
     <script type="text/ng-template" id="xitem.html">
         <span class="gripper" pw-handle></span>
-        <button class="open {{item.children.length > 0 | hasChildren}}" ng-click="$parent.showChildren(item)"></button>
-        <input class="text" ng-model="item.data.text" ng-blur="$parent.check(item)">
-        <input class="url" ng-model="item.data.url" ng-blur="$parent.check(item)">
-        <button class="add" ng-click="$parent.add(item)">Add</button>
+        <input class="text" ng-model="item.data.text" ng-click="$parent.showChildren(item)" ng-readonly="!item.showChildren">
+        <input class="url" ng-model="item.data.url" ng-show="item.children.length === 0">
         <button class="delete" ng-click="$parent.remove(item)">Delete</button>
         <ul class="children" ng-show="item.children.length > 0">
             <li class="item {{item.showChildren | showChildren}}" ng-repeat="item in item.children" ng-include="'xitem.html'" pw-sortable>
             </li>
         </ul>
+        <button class="add" ng-click="$parent.add(item)" ng-show="!item.data.url">Add</button>
     </script>
 
     <script src="libs/angular.js"></script>
     <script src="libs/directive.sortable.js"></script>
     <script src="libs/TreeNode.js"></script>
     <script src="libs/TreeNode.ImportFromJSON.js"></script>
-    <script src="libs/TreeNode.ExportUpdates.js"></script>
-    <script src="libs/TreeNode.Decorate.js"></script>
-    <script src="libs/TreeNode.LftRgt.js"></script>
+    <script src="libs/TreeNode.ExportToKeyValue.js"></script>
     <script src="js/customImport.js"></script>
     <script src="js/controllers.js"></script>
 </body>

@@ -8,8 +8,6 @@
 @errbg: #FFCCCC;
 
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -42,43 +40,73 @@ button {
     padding: .5rem;
 }
 
-.root {
-    ul,
-    li {
-        border: 1px @border solid;
-        margin: 0;
-        padding: 0;
-        list-style: none;
+ul,
+li {
+    border: 1px @border solid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+li {
+    line-height: 3rem;
+    padding: 0 0 0 .6em;
+}
+
+.item {
+    position: relative;
+
+    > input,
+    > button {
+        position: relative;
     }
 
-     li {
-        line-height: 3rem;
-        padding: 0 0 0 .6em;
-    }
-
-    li ul {
-        display: none;
-    }
-
-    .children-visible > ul {
-        display: block;
+    > input {
+        border-width: 0;
+        width: ~"calc(100% - 5em)";
     }
 
     .open {
-        margin-right: 3px;
-        visibility: hidden;
+        background: transparent;
+        border: 0;
+        display: block;
+        height: 32px;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
     }
 
-    .open:before {
-        content: "+";
+    .delete {
+        font-size: 0;
+        position: absolute;
+        right: 1em;
+        top: 0;
+
+        &:before {
+            content: 'x';
+            font-size: 1.2rem;
+        }
     }
 
-    .children-visible > .open:before {
-        content: "-";
+    .children,
+    .url,
+    .add {
+        display: none;
+    }
+}
+
+.children-visible {
+    > .children,
+    > .url,
+    > .add {
+        display: block;
     }
 
-    .has-children {
-        visibility: visible;
+    > input {
+        border-width: 1px;
     }
 }
 
@@ -87,37 +115,66 @@ button {
     background-size: 100% 100%;
     display: inline-block;
     height: 1.9rem;
+    position: relative;
     vertical-align: middle;
     width: 2rem;
+    z-index: 1;
 }
 
 .updates {
-    margin: 10px auto 0;
+    margin: .25em;
+    max-height: 6em;
     min-width: 300px;
-    width: 60%;
+    overflow: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    li {
+        background: #ccccff;
+        border: none;
+        list-style-type: none;
+        padding: .1em;
+    }
+
+    .error {
+        background: #ffcccc;
+    }
+
+    .time {
+        font-size: 1rem;
+        color: lighten(@text, 10%);
+        vertical-align: middle;
+    }
+
+    .time:before {
+        content: '- ';
+    }
 }
 
-.updates li {
-    list-style-type: none;
+.select-menu {
+    clear: both;
+    float: left;
+    width: 25%;
+
+    input {
+        display: none;
+    }
 }
 
-.updates .time {
-    font-size: 1rem;
-    color: lighten(@text, 10%);
-    vertical-align: middle;
+.editor {
+    float: left;
+    width: 70%;
 }
 
-.updates .time:before {
-    content: '- ';
+.services input {
+    display: none;
 }
 
-.info li {
-    background: #ccccff;
-    padding: 1em;
+.services > div {
+    display: inline-block;
 }
 
-.error li {
-    background: #ffcccc;
-    padding: 1em;
+button {
+    display: none;
 }
-

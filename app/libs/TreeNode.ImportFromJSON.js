@@ -1,6 +1,24 @@
 (function(TreeNode) {
     'use strict';
 
+    var createChild = function(init, data) {
+        // clone init except for data and rootName
+        var newInit = {};
+        newInit.prototype = init.prototype;
+
+        for (var prop in init) {
+            if (init.hasOwnProperty(prop)) {
+                newInit[prop] = init[prop];
+            }
+        }
+
+        newInit.data = data;
+        delete newInit.rootName;
+        delete newInit.rootStore;
+
+        return TreeNode.ImportFromJSON(newInit);
+    };
+
     TreeNode.ImportFromJSON = function(init) {
         if (init) {
             var tree = new TreeNode();
@@ -12,26 +30,17 @@
             tree.data  = {};
             tree.data.store = {};
 
+            var addChild = function(child) {
+                tree.add(createChild(init, child));
+            };
+                
             for (var prop in data) {
                 if (data.hasOwnProperty(prop)) {
-                    if (prop !== childKey) {
+                    if (childKey.indexOf(prop) === -1) {
                         tree.data.store[prop] = data[prop];
-                        TreeNode.ImportFromJSON.custom(tree, init, prop);
+                        TreeNode.ImportFromJSON.custom(tree, init, prop, data[prop]);
                     } else {
-                        for (i = 0, max = data[prop].length; i < max; i++) {
-                            // clone init except for data
-                            newInit = {};
-                            newInit.prototype = init.prototype;
-                            newInit.data = data[prop][i];
-                            for (newProp in init) {
-                                if (init.hasOwnProperty(newProp) &&
-                                    newProp !== 'data') {
-                                    newInit[newProp] = init[newProp];
-                                }
-                            }
-
-                            tree.add(TreeNode.ImportFromJSON(newInit));
-                        }
+                        data[prop].forEach(addChild);
                     }
                 }
             }

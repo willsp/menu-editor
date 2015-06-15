@@ -1,0 +1,34 @@
+[
+    {
+        "Text": "County History",
+        "Url": "~/history.aspx"
+    },
+    {
+        "Text": "Mason Greenlee",
+        "Url": "~/historymason.aspx"
+    },
+    {
+        "Text": "Clifton",
+        "Url": "~/historyclifton.aspx"
+    },
+    {
+        "Text": "Duncan",
+        "Url": "~/historyduncan.aspx"
+    },
+    {
+        "Text": "Morenci",
+        "Url": "~/historymorenci.aspx"
+    },
+    {
+        "Text": "Morenci Mining District",
+        "Url": "~/morencimining.aspx"
+    },
+    {
+        "Text": "Morenci Southern Railroad",
+        "Url": "~/morencirailroad.aspx"
+    },
+    {
+        "Text": "Seal of Greenlee County",
+        "Url": "~/historyseal.aspx"
+    }
+]

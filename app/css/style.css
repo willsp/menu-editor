@@ -1,7 +1,5 @@
 /*csslint universal-selector: false, box-sizing: false, box-model: false*/
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 html {
@@ -29,51 +27,90 @@ button {
   margin: 0 0 0 .5rem;
   padding: .5rem;
 }
-.root ul,
-.root li {
+ul,
+li {
   border: 1px #cccccc solid;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.root li {
+li {
   line-height: 3rem;
   padding: 0 0 0 .6em;
 }
-.root li ul {
+.item {
+  position: relative;
+}
+.item > input,
+.item > button {
+  position: relative;
+}
+.item > input {
+  border-width: 0;
+  width: calc(100% - 5em);
+}
+.item .open {
+  background: transparent;
+  border: 0;
+  display: block;
+  height: 32px;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.item .delete {
+  font-size: 0;
+  position: absolute;
+  right: 1em;
+  top: 0;
+}
+.item .delete:before {
+  content: 'x';
+  font-size: 1.2rem;
+}
+.item .children,
+.item .url,
+.item .add {
   display: none;
 }
-.root .children-visible > ul {
+.children-visible > .children,
+.children-visible > .url,
+.children-visible > .add {
   display: block;
 }
-.root .open {
-  margin-right: 3px;
-  visibility: hidden;
-}
-.root .open:before {
-  content: "+";
-}
-.root .children-visible > .open:before {
-  content: "-";
-}
-.root .has-children {
-  visibility: visible;
+.children-visible > input {
+  border-width: 1px;
 }
 .gripper {
   background: url('img/burger.png') center center no-repeat;
   background-size: 100% 100%;
   display: inline-block;
   height: 1.9rem;
+  position: relative;
   vertical-align: middle;
   width: 2rem;
+  z-index: 1;
 }
 .updates {
-  margin: 10px auto 0;
+  margin: .25em;
+  max-height: 6em;
   min-width: 300px;
-  width: 60%;
+  overflow: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 .updates li {
+  background: #ccccff;
+  border: none;
   list-style-type: none;
+  padding: .1em;
+}
+.updates .error {
+  background: #ffcccc;
 }
 .updates .time {
   font-size: 1rem;
@@ -83,11 +120,24 @@ button {
 .updates .time:before {
   content: '- ';
 }
-.info li {
-  background: #ccccff;
-  padding: 1em;
+.select-menu {
+  clear: both;
+  float: left;
+  width: 25%;
 }
-.error li {
-  background: #ffcccc;
-  padding: 1em;
+.select-menu input {
+  display: none;
+}
+.editor {
+  float: left;
+  width: 70%;
+}
+.services input {
+  display: none;
+}
+.services > div {
+  display: inline-block;
+}
+button {
+  display: none;
 }
