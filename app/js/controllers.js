@@ -5,6 +5,14 @@
 
     var menuEditor = angular.module('menuEditor', ['willsp.pwSortable']);
 
+    menuEditor.filter('selected', function() {
+        return function(input) {
+            if (input) {
+                return 'selected';
+            }
+        };
+    });
+
     menuEditor.filter('showChildren', function() {
         return function(input) {
             if (input) {
@@ -132,6 +140,11 @@
             }
         };
 
+        $scope.adddb = function() {
+            var guid = generateGuid();
+            
+        };
+
         $scope.remove = function(item) {
             var text = (item.data && item.data.text) ? item.data.text : 'this';
             if (confirm('Really delete ' + text + '?')) {
@@ -149,6 +162,18 @@
             $scope.dbview = '/_design/edit/_view/menus';
             $scope.getMenus();
         });
+
+        function generateGuid() {
+            var result, i, j;
+            result = '';
+            for(j=0; j<32; j++) {
+                if( j == 8 || j == 12|| j == 16|| j == 20) 
+                    result = result + '-';
+                i = Math.floor(Math.random()*16).toString(16).toUpperCase();
+                result = result + i;
+            }
+            return result;
+        }
     });
 }());
 

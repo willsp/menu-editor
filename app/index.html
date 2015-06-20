@@ -18,8 +18,9 @@
         <input class="dbview" type="text" ng-model="dbview">
         <button ng-click="getMenus()">Load</button>
         <ul>
-            <li ng-repeat="db in dbList" ng-click="open(db.id)">{{db.value}}</li>
+            <li ng-repeat="db in dbList" ng-click="open(db.id)" class="{{ menuGetAddress.search(db.id) > -1 | selected }}">{{db.value}}</li>
         </ul>
+        <button class="add" ng-click="adddb()">Add</button>
     </section>
     <section class="editor">
         <section class="services">
@@ -43,8 +44,12 @@
     <script type="text/ng-template" id="xitem.html">
         <span class="gripper" pw-handle></span>
         <input class="text" ng-model="item.data.text" ng-click="$parent.showChildren(item)" ng-readonly="!item.showChildren">
-        <input class="url" ng-model="item.data.url" ng-show="item.children.length === 0">
-        <button class="delete" ng-click="$parent.remove(item)">Delete</button>
+        <div class="url" ng-show="item.children.length === 0">
+            <label>
+                <input ng-model="item.data.url">
+            </label>
+        </div>
+        <button class="delete" ng-click="$parent.remove(item)"></button>
         <ul class="children" ng-show="item.children.length > 0">
             <li class="item {{item.showChildren | showChildren}}" ng-repeat="item in item.children" ng-include="'xitem.html'" pw-sortable>
             </li>

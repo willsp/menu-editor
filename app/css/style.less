@@ -6,6 +6,7 @@
 @border: #CCCCCC;
 @infobg: #CCCCFF;
 @errbg: #FFCCCC;
+@highlight: #77E0FF;
 
 * {
     box-sizing: border-box;
@@ -35,9 +36,15 @@ h1 {
 }
 
 button {
-    border-radius: 0;
+    background: @highlight;
+    border: none;
+    border-radius: 1.5em;
     margin: 0 0 0 .5rem;
     padding: .5rem;
+
+    &:hover {
+        background: lighten(@highlight, 10%);
+    }
 }
 
 ul,
@@ -49,11 +56,19 @@ li {
 }
 
 li {
-    line-height: 3rem;
+    line-height: 3;
     padding: 0 0 0 .6em;
 }
 
+button,
+input,
+ul {
+    line-height: 1;
+    margin-bottom: 1em;
+}
+
 .item {
+    padding: .5em;
     position: relative;
 
     > input,
@@ -80,14 +95,12 @@ li {
     }
 
     .delete {
-        font-size: 0;
         position: absolute;
-        right: 1em;
-        top: 0;
+        right: .5em;
+        top: 1em;
 
         &:before {
-            content: 'x';
-            font-size: 1.2rem;
+            content: 'X';
         }
     }
 
@@ -99,6 +112,9 @@ li {
 }
 
 .children-visible {
+    border-color: @highlight;
+    box-shadow: inset 0 0 1em @highlight;
+
     > .children,
     > .url,
     > .add {
@@ -107,6 +123,22 @@ li {
 
     > input {
         border-width: 1px;
+    }
+}
+
+.url {
+    &:before {
+        background: url('img/link23.png') 0 0 no-repeat;
+        background-size: 100% 100%;
+        content: '';
+        height: 1.9rem;
+        padding-left: 2rem;
+        position: relative;
+        vertical-align: middle;
+    }
+
+    input {
+        width: ~"calc(100% - 2rem)";
     }
 }
 
@@ -175,6 +207,7 @@ li {
     display: inline-block;
 }
 
-button {
-    display: none;
+.selected {
+    border-color: @highlight;
+    box-shadow: inset 0 0 1em @highlight;
 }
