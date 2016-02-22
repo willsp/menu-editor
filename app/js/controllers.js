@@ -1,4 +1,5 @@
-/*global angular, TreeNode, confirm, $scope*/
+/*eslint quotes: [2, "single"]*/
+/*global angular, TreeNode, confirm*/
 
 (function() {
     'use strict';
@@ -43,17 +44,17 @@
         };
 
         $scope.getMenus = function() {
-            $http({method: 'GET', url: $scope.dburl + $scope.dbview}).
+            $http({ method: 'GET', url: $scope.dburl + $scope.dbview }).
                 success(function(data, status, headers, config) {
                     $scope.dbList = data.rows;
                 }).
                 error(function(data, status, headers, config) {
-                $scope.updates.unshift({
-                    text: 'Error: Unable to load menu. Status: ' + status,
-                    time: new Date(),
-                    type: "error"
+                    $scope.updates.unshift({
+                        text: 'Error: Unable to load menu. Status: ' + status,
+                        time: new Date(),
+                        type: 'error'
+                    });
                 });
-            });
         };
 
         $scope.open = function(url) {
@@ -68,7 +69,7 @@
         };
 
         $scope.getMenu = function() {
-            $http({method: 'GET', url: $scope.menuGetAddress}).
+            $http({ method: 'GET', url: $scope.menuGetAddress }).
                 success(function(data, status, headers, config) {
                     var menu;
                     menu = TreeNode.ImportFromJSON({
@@ -81,12 +82,12 @@
                     $scope.menu = menu;
                 }).
                 error(function(data, status, headers, config) {
-                $scope.updates.unshift({
-                    text: 'Error: Unable to load menu. Status: ' + status,
-                    time: new Date(),
-                    type: "error"
+                    $scope.updates.unshift({
+                        text: 'Error: Unable to load menu. Status: ' + status,
+                        time: new Date(),
+                        type: 'error'
+                    });
                 });
-            });
         };
 
         $scope.putMenu = function() {
@@ -97,52 +98,47 @@
                     save.Text = this.data.text;
                     if (this.data.url) {
                         save.Url = this.data.url;
+                    } else if (!this.data.url && save.Url) {
+                        delete save.Url;
                     }
                 }
             });
 
-            $http({method: 'PUT', data: updated, url: $scope.menuPutAddress}).
+            $http({ method: 'PUT', data: updated, url: $scope.menuPutAddress }).
                 success(function(data, status, headers, config) {
-                if (data.ok) {
-                    $scope.updates.unshift({
-                        text: 'SUCCESS (Status: ' + status + ')',
-                        time: new Date(),
-                        type: "info"
-                    });
-                    menu.data.store._rev = data.rev;
-                } else {
-                    $scope.updates.unshift({
-                        text: 'Error: There was a problem. ' +
-                            'Status: ' + status,
-                        time: new Date(),
-                        type: "error"
-                    });
-                }
-            }).
+                    if (data.ok) {
+                        $scope.updates.unshift({
+                            text: 'SUCCESS (Status: ' + status + ')',
+                            time: new Date(),
+                            type: 'info'
+                        });
+                        menu.data.store._rev = data.rev;
+                    } else {
+                        $scope.updates.unshift({
+                            text: 'Error: There was a problem. ' +
+                                'Status: ' + status,
+                            time: new Date(),
+                            type: 'error'
+                        });
+                    }
+                }).
                 error(function(data, status, headers, config) {
-                $scope.updates.unshift({
-                    text: 'Error: Unable to save menu. Message: ' +
-                        data.reason + ' Status: ' + status,
-                    time: new Date(),
-                    type: "error"
+                    $scope.updates.unshift({
+                        text: 'Error: Unable to save menu. Message: ' +
+                            data.reason + ' Status: ' + status,
+                        time: new Date(),
+                        type: 'error'
+                    });
                 });
-            });
         };
                         
         $scope.add = function(item) {
-            var child;
-
             if (item) {
-                child = item.add(new TreeNode());
+                item.add(new TreeNode());
                 item.showChildren = true;
             } else {
-                child = $scope.menu.add(new TreeNode());
+                $scope.menu.add(new TreeNode());
             }
-        };
-
-        $scope.adddb = function() {
-            var guid = generateGuid();
-            
         };
 
         $scope.remove = function(item) {
@@ -163,17 +159,25 @@
             $scope.getMenus();
         });
 
+        /* I really need to get around to implementing this... 
+        $scope.adddb = function() {
+            var guid = generateGuid();
+            
+        };
+
         function generateGuid() {
             var result, i, j;
             result = '';
-            for(j=0; j<32; j++) {
-                if( j == 8 || j == 12|| j == 16|| j == 20) 
+            for (j=0; j<32; j++) {
+                if (j === 8 || j === 12|| j === 16|| j === 20) {
                     result = result + '-';
+                }
                 i = Math.floor(Math.random()*16).toString(16).toUpperCase();
                 result = result + i;
             }
             return result;
         }
+        */
     });
-}());
+})();
 
